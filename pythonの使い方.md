@@ -104,6 +104,48 @@ print(cnt2 - cnt1)
 ```
 Counter({"a": 1, "v": 1, "e": 1, "r": 1, "g": 1})
 ```
+## 素因数分解
+___
+```
+def primeNumber(N):
+    primeList = [True] * (int(N ** (1 / 2) + 0.5) + 1)
+    primeList[0] = False
+    primeList[1] = False
+    
+    for i in range(2, int(N ** (1 / 2) + 0.5) + 1):
+        if primeList[i]:
+            for j in range(2 * i, int(N ** (1 / 2) + 0.5) + 1, i):
+                primeList[j] = False
+    
+    prime = []
+    
+    for i in range(2, int(N ** (1 / 2) + 0.5) + 1):
+        if primeList[i]:
+            prime.append(i)
+    
+    return prime
+
+def factorization(n, prime):
+    ret = []
+    tmp = N
+    for i in prime:
+        if tmp % i == 0:
+            cnt = 0
+            while tmp % i == 0:
+                cnt += 1
+                tmp //= i
+            ret.append([i, cnt])
+    
+    if tmp != 1:
+        ret.append([tmp, 1])
+    
+    if ret == []:
+        ret.append([n, 1])
+    
+    return ret
+
+factorization(N, primeNumber(N))
+```
 ## SortedSet
 ___
 ```
