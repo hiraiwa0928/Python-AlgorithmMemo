@@ -78,6 +78,8 @@ def root(x):
         return par[x]
  
 def union(x, y):
+    if root(x) == root(y):
+        return
     x = root(x)
     y = root(y)
     par[x] += par[y]
