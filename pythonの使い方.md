@@ -68,6 +68,9 @@ data = array.array("i", [])
 ## Union Find
 ___
 ```
+import sys
+sys.setrecursionlimit(10 ** 8)
+
 par = [-1] * N
 
 def root(x):
