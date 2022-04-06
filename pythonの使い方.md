@@ -436,3 +436,54 @@ s.count(x) sに含まれるxの個数を返す
 s.index(n) nより小さい要素の個数
 s.index_right(n) n以下の要素の個数
 ```
+## 強連結成分(SCC)
+___
+```
+import sys
+sys.setrecursionlimit(10 ** 8)
+
+def dfs(x):
+    if come[x]: return
+    come[x] = True
+    for i in G[x]:
+        dfs(i)
+    backorder.append(x)
+
+def rdfs(x):
+    if come[x]: return
+    come[x] = True
+    components[-1].append(x)
+    for i in rG[x]:
+        rdfs(i)
+
+N, M = map(int, input().split())
+G = [[] for _ in range(N)]
+rG = [[] for _ in range(N)]
+for _ in range(M):
+    a, b = map(lambda x: int(x) - 1, input().split())
+    G[a].append(b)
+    rG[b].append(a)
+
+come = [False] * N
+backorder = []
+
+for i in range(N):
+    if come[i]: continue
+    dfs(i)
+
+backorder.reverse()
+come = [False] * N
+
+# 強連結成分を格納するリスト
+components = []
+
+for i in backorder:
+    if come[i]: continue
+    components.append([])
+    rdfs(i)
+```
+##### 解説
+```
+[AtCoder 典型90 021](https://atcoder.jp/contests/typical90/tasks/typical90_u)
+[Youtube かつっぱ競プロ](https://www.youtube.com/watch?v=cRbst-d4Fho&t=1198s)
+```
