@@ -436,7 +436,7 @@ s.count(x) sに含まれるxの個数を返す
 s.index(n) nより小さい要素の個数
 s.index_right(n) n以下の要素の個数
 ```
-## 強連結成分(SCC)
+## 強連結成分分解(SCC)
 ___
 ```
 import sys
