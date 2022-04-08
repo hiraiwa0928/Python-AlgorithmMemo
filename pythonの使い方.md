@@ -538,3 +538,6 @@ seg = SegTree([0] * N, segfunc, ide_ele)
 ```
 ##### 使い方
 <img src="./image/segtree.png" width = "70%">
+
+##### 参考URL
+[【Python】セグ木、遅延セグ木【AtCoder】](https://qiita.com/ether2420/items/7b67b2b35ad5f441d686)
