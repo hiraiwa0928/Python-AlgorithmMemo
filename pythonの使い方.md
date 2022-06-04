@@ -149,7 +149,7 @@ def factorization(n, prime):
     
     return ret
 
-N = input()
+N = int(input())
 
 prime = primeNumber(N)
 print(factorization(N, prime))
