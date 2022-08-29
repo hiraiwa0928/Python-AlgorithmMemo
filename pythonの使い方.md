@@ -132,7 +132,7 @@ def primeNumber(N):
 
 def factorization(n, prime):
     ret = []
-    tmp = N
+    tmp = n
     for i in prime:
         if tmp % i == 0:
             cnt = 0
@@ -149,7 +149,10 @@ def factorization(n, prime):
     
     return ret
 
-factorization(N, primeNumber(N))
+N = int(input())
+
+prime = primeNumber(N)
+print(factorization(N, prime))
 ```
 ## SortedSet
 ___
