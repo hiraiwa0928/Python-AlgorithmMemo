@@ -113,18 +113,18 @@ Counter({"a": 1, "v": 1, "e": 1, "r": 1, "g": 1})
 ___
 ```
 def primeNumber(N):
-    primeList = [True] * (int(N ** (1 / 2) + 0.5) + 1)
+    primeList = [True] * (N + 1)
     primeList[0] = False
     primeList[1] = False
     
     for i in range(2, int(N ** (1 / 2) + 0.5) + 1):
         if primeList[i]:
-            for j in range(2 * i, int(N ** (1 / 2) + 0.5) + 1, i):
+            for j in range(2 * i, N + 1, i):
                 primeList[j] = False
     
     prime = []
     
-    for i in range(2, int(N ** (1 / 2) + 0.5) + 1):
+    for i in range(2, N + 1):
         if primeList[i]:
             prime.append(i)
     
