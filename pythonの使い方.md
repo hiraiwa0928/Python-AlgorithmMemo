@@ -1,8 +1,8 @@
-## 指定した要素を配列からすべて削除する
+## PyPy-再帰高速
 ___
 ```
-A = ["a", "b", "b", "b", "c",]
-A = [n for n in A if n != "b"]
+import pypyjit
+pypyjit.set_param('max_unroll_recursion=-1')
 ```
 
 ## 大文字小文字
