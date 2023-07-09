@@ -113,11 +113,12 @@ Counter({"a": 1, "v": 1, "e": 1, "r": 1, "g": 1})
 ___
 ```
 def primeNumber(N):
+    N = int(N ** (1 / 2) + 0.5) + 1
     primeList = [True] * (N + 1)
     primeList[0] = False
     primeList[1] = False
     
-    for i in range(2, int(N ** (1 / 2) + 0.5) + 1):
+    for i in range(2, N + 1):
         if primeList[i]:
             for j in range(2 * i, N + 1, i):
                 primeList[j] = False
@@ -152,7 +153,9 @@ def factorization(n, prime):
 N = int(input())
 
 prime = primeNumber(N)
-print(factorization(N, prime))
+fac = factorization(N, prime)
+
+print(fac)
 ```
 ## SortedSet
 ___
