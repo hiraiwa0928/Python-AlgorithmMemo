@@ -1,3 +1,10 @@
+## 入力受付の高速化
+___
+```
+import sys
+input = sys.stdin.readline
+```
+
 ## PyPy-再帰高速
 ___
 ```
