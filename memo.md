@@ -1,19 +1,16 @@
 ## 入力受付の高速化
-___
 ```
 import sys
 input = sys.stdin.readline
 ```
 
 ## PyPy-再帰高速
-___
 ```
 import pypyjit
 pypyjit.set_param('max_unroll_recursion=-1')
 ```
 
 ## 大文字小文字
-___
 #### 変換
 ```
 str = "abcXYZ"
@@ -27,7 +24,6 @@ str.islower()
 ```
 
 ## dict型のソート
-___
 ##### ex)
 ```
 mydict = {"banana": 3, "apple": 1, "orange": 2}
@@ -48,8 +44,8 @@ dict_sorted = sorted(mydict.items(), key = lambda x: x[1])
 ```
 [("apple", 1), ("orange", 2), ("banana", 3)]
 ```
+
 ## 追加したデータをソートしていく O(lon(n))
-___
 ```
 import bisect
 
@@ -63,7 +59,6 @@ bisect.insort(array, 2)
 [2, 4, 7]
 ```
 ## 配列の型を一つに指定する
-___
 ```
 import array
 
@@ -99,8 +94,8 @@ def size(x):
     x = root(x)
     return -par[x] 
 ```
+
 ## Counterの使い方
-___
 ```
 from collections import Counter
 
@@ -116,8 +111,8 @@ print(cnt2 - cnt1)
 ```
 Counter({"a": 1, "v": 1, "e": 1, "r": 1, "g": 1})
 ```
+
 ## 素因数分解
-___
 ```
 def primeNumber(N):
     N = int(N ** (1 / 2) + 0.5) + 1
@@ -164,8 +159,8 @@ fac = factorization(N, prime)
 
 print(fac)
 ```
+
 ## SortedSet
-___
 ```
 import math
 from bisect import bisect_left, bisect_right
@@ -297,6 +292,7 @@ class SortedSet(Generic[T]):
             ans += len(a)
         return ans
 ```
+
 ## SortedMultiset
 ```
 import math
@@ -430,6 +426,7 @@ class SortedMultiset(Generic[T]):
             ans += len(a)
         return ans
 ```
+
 ##### 使い方
 (https://github.com/tatyam-prime/SortedSet)
 ```
@@ -449,8 +446,8 @@ s.count(x) sに含まれるxの個数を返す
 s.index(n) nより小さい要素の個数
 s.index_right(n) n以下の要素の個数
 ```
+
 ## 強連結成分分解(SCC)
-___
 ```
 import sys
 sys.setrecursionlimit(10 ** 8)
@@ -500,102 +497,49 @@ for i in backorder:
 [AtCoder 典型90 021](https://atcoder.jp/contests/typical90/tasks/typical90_u)
 [Youtube かつっぱ競プロ](https://www.youtube.com/watch?v=cRbst-d4Fho&t=1198s)
 ```
-## セグメント木
-```
-#####segfunc#####
-def segfunc(x, y):
-    return 
-#################
-
-#####ide_ele#####
-ide_ele = 
-#################
-class SegTree:
-    def __init__(self,init_val,segfunc,ide_ele):
-        n = len(init_val)
-        self.segfunc = segfunc
-        self.ide_ele = ide_ele
-        self.num = 1<<(n-1).bit_length()
-        self.tree = [ide_ele]*2*self.num
-        for i in range(n):
-            self.tree[self.num+i] = init_val[i]
-        for i in range(self.num-1,0,-1):
-            self.tree[i] = self.segfunc(self.tree[2*i],self.tree[2*i+1])
-    def add(self,k,x):
-        k += self.num
-        self.tree[k] += x
-        while k>1:
-            self.tree[k>>1] = self.segfunc(self.tree[k],self.tree[k^1])
-            k >>= 1
-    def update(self,k,x):
-        k += self.num
-        self.tree[k] = x
-        while k>1:
-            self.tree[k>>1] = self.segfunc(self.tree[k],self.tree[k^1])
-            k >>= 1
-    def query(self,l,r):
-        res = self.ide_ele
-        l += self.num
-        r += self.num
-        while l<r:
-            if l&1:
-                res = self.segfunc(res,self.tree[l])
-                l += 1
-            if r&1:
-                res = self.segfunc(res,self.tree[r-1])
-            l >>= 1
-            r >>= 1
-        return res
-
-seg = SegTree([0] * N, segfunc, ide_ele)
-```
-##### 使い方
-<img src="./image/segtree.png" width = "70%">
-
-##### 参考URL
-[【Python】セグ木、遅延セグ木【AtCoder】](https://qiita.com/ether2420/items/7b67b2b35ad5f441d686)
 
 ## 凸包
-___
 ```
 def cross_product(moto, saki0, saki1):
-  # moto->saki0 の直線に対し saki1がどちら側にあるか
-  # >0 ならば 左側 <0 ならば 右側
-  x0 = saki0[0] - moto[0]
-  y0 = saki0[1] - moto[1]
-  x1 = saki1[0] - moto[0]
-  y1 = saki1[1] - moto[1]
-  gaiseki = x0 * y1 - x1 * y0
-  return cross_product
+    # moto->saki0 の直線に対し saki1がどちら側にあるか
+    # >0 ならば 左側 <0 ならば 右側
+    x0 = saki0[0] - moto[0]
+    y0 = saki0[1] - moto[1]
+    x1 = saki1[0] - moto[0]
+    y1 = saki1[1] - moto[1]
+    cross_product = x0 * y1 - x1 * y0
+    
+    return cross_product
 
 def wrap(ps):
-  # ギフト包装法を使って凸包を求める。
-  # 各点[x, y]をリストとして与えると凸包の各点をリストとして返す。
-  qs = []
-  # 最初の点
-  x = [p[0] for p in ps]
-  min_i = x.index(min(x))
-  qs.append(ps[min_i]) # xが最小になる点をqs[0]とする。
-  # 各点
-  n = -1
-  while True:
-    n += 1
-    for i in range(len(ps)):
-      flag = False
-      for p1 in ps:
-        if qs[n] == ps[i]:
-          flag = True
-          break
-        result = cross_product(qs[n], ps[i], p1)
-        if result > 0 : # left
-          flag = True
-          break
-      if flag == False:
-        this_i = i
-    if ps[this_i] == qs[0]:
-      break
-    qs.append(ps[this_i])
-  return qs
+    # ギフト包装法を使って凸包を求める。
+    # 各点[x, y]をリストとして与えると凸包の各点をリストとして返す。
+    qs = []
+    # 最初の点
+    x = [p[0] for p in ps]
+    min_i = x.index(min(x))
+    qs.append(ps[min_i]) # xが最小になる点をqs[0]とする。
+    # 各点
+    n = -1
+    while True:
+        n += 1
+        for i in range(len(ps)):
+            flag = False
+            for p1 in ps:
+                if qs[n] == ps[i]:
+                    flag = True
+                    break
+                result = cross_product(qs[n], ps[i], p1)
+                if result > 0 : # left
+                    flag = True
+                    break
+            if flag == False:
+                this_i = i
+        if ps[this_i] == qs[0]:
+            break
+        qs.append(ps[this_i])
+    
+    return qs
 
 # wrap(point)
 # pointは座標をリスト型でまとめたもの
