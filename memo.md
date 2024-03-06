@@ -1,102 +1,62 @@
-## 入力受付の高速化
-```
+## Pythonの高速化
+<details>
+<summary><b>入力受付の高速化</b></summary>
+
+```python
 import sys
 input = sys.stdin.readline
 ```
+</details>
 
-## PyPy-再帰高速
-```
+<details>
+<summary><b>PyPy-再帰高速</b></summary>
+
+```python
 import pypyjit
 pypyjit.set_param('max_unroll_recursion=-1')
 ```
+</details>
 
-## 大文字小文字
+## 便利
+
+<details>
+<summary><b>大文字小文字</b></summary>
+
 #### 変換
-```
+```python
 str = "abcXYZ"
 str.upper()
 str.lower()
 ```
 #### 判定
-```
+```python
 str.isupper()
 str.islower()
 ```
+</details>
 
-## dict型のソート
-##### ex)
-```
-mydict = {"banana": 3, "apple": 1, "orange": 2}
-```
-#### keyで並び替え
-```
-dict_sorted = sorted(mydict.items(), key = lambda x: x[0])
-```
-##### 結果
-```
-[("apple", 1), ("banana", 3), ("orange", 2)]
-```
-#### valueで並び替え
-```
-dict_sorted = sorted(mydict.items(), key = lambda x: x[1])
-```
-##### 結果
-```
-[("apple", 1), ("orange", 2), ("banana", 3)]
-```
+<details>
+<summary><b>dict型のソート</b></summary>
 
-## 追加したデータをソートしていく O(lon(n))
-```
-import bisect
+#### 変換
+```python
+d = {"banana": 3, "apple": 1, "orange": 2}
 
-array = []
-bisect.insort(array, 4)
-bisect.insort(array, 7)
-bisect.insort(array, 2)
-```
-##### 結果
-```
-[2, 4, 7]
-```
-## 配列の型を一つに指定する
-```
-import array
+# keyで並び替え
+d_sort_key = sorted(d.items(), key = lambda x: x[0])
+# [("apple", 1), ("banana", 3), ("orange", 2)]
 
-data = array.array("i", [])
-```
-[型のコードは以下のURLを参照]
-(https://docs.python.org/ja/3/library/array.html)
+# valueで並び替え
+d_sort_val = sorted(d.items(), key = lambda x: x[1])
+# [("apple", 1), ("orange", 2), ("banana", 3)]
 
-## Union Find
-___
 ```
-import sys
-sys.setrecursionlimit(10 ** 8)
+</details>
 
-par = [-1] * N
+<details>
+<summary><b>Counterの使い方</b></summary>
 
-def root(x):
-    if par[x] < 0:
-        return x
-    else:
-        par[x] = root(par[x])
-        return par[x]
- 
-def union(x, y):
-    x = root(x)
-    y = root(y)
-    if x == y:
-        return
-    par[x] += par[y]
-    par[y] = x
- 
-def size(x):
-    x = root(x)
-    return -par[x] 
-```
-
-## Counterの使い方
-```
+```python
 from collections import Counter
 
 moji1 = "apple"
@@ -106,14 +66,47 @@ moji2 = "average"
 cnt2 = Counter(moji2)
 
 print(cnt2 - cnt1)
-```
-##### 結果
-```
-Counter({"a": 1, "v": 1, "e": 1, "r": 1, "g": 1})
-```
+# Counter({"a": 1, "v": 1, "e": 1, "r": 1, "g": 1})
 
-## 素因数分解
 ```
+</details>
+
+## 数学　高速
+
+<details>
+<summary><b>素数</b></summary>
+
+Nまでの素数を算出
+```python
+def primeNumber(N):
+    N = int(N ** (1 / 2) + 0.5) + 1
+    primeList = [True] * (N + 1)
+    primeList[0] = False
+    primeList[1] = False
+    
+    for i in range(2, N + 1):
+        if primeList[i]:
+            for j in range(2 * i, N + 1, i):
+                primeList[j] = False
+    
+    prime = []
+    
+    for i in range(2, N + 1):
+        if primeList[i]:
+            prime.append(i)
+    
+    return prime
+
+N = int(input())
+
+prime = primeNumber(N)
+```
+</details>
+
+<details>
+<summary><b>素因数分解</b></summary>
+
+```python
 def primeNumber(N):
     N = int(N ** (1 / 2) + 0.5) + 1
     primeList = [True] * (N + 1)
@@ -156,12 +149,46 @@ N = int(input())
 
 prime = primeNumber(N)
 fac = factorization(N, prime)
-
-print(fac)
 ```
+</details>
 
-## SortedSet
+## アルゴリズム及びデータ構造
+
+<details>
+<summary><b>Union Find</b></summary>
+
+```python
+import sys
+sys.setrecursionlimit(10 ** 8)
+
+def root(x):
+    if par[x] < 0:
+        return x
+    else:
+        par[x] = root(par[x])
+        return par[x]
+ 
+def union(x, y):
+    x = root(x)
+    y = root(y)
+    if x == y:
+        return
+    par[x] += par[y]
+    par[y] = x
+ 
+def size(x):
+    x = root(x)
+    return -par[x]
+
+N = int(input())
+par = [-1] * N 
 ```
+</details>
+
+<details>
+<summary><b>SortedSet</b></summary>
+
+```python
 import math
 from bisect import bisect_left, bisect_right
 from typing import Generic, Iterable, Iterator, TypeVar, Union, List
@@ -293,8 +320,26 @@ class SortedSet(Generic[T]):
         return ans
 ```
 
-## SortedMultiset
-```
+> <b>s = SortedSet()</b> 初期化<br>
+> <b>len(s)</b> sの長さを表示<br>
+> <b>s[x]</b> 下からx番目の要素を返す<br>
+> <b>s.add(n)</b> nを追加<br>
+> <b>s.discard(n)</b> nを削除<br>
+> <b>s.lt(n)</b> nより小さい最大の要素<br>
+> <b>s.le(n)</b> n以下の最大の要素><br>
+> <b>s.gt(n)</b> nより大きい最小の要素<br>
+> <b>s.ge(n)</b> n以上の最小の要素<br>
+> <b>s.index(n)</b> nより小さい要素の個数<br>
+> <b>s.index_right(n)</b> n以下の要素の個数<br>
+
+> (https://github.com/tatyam-prime/SortedSet)
+
+</details>
+
+<details>
+<summary><b>SortedMultiset</b></summary>
+
+```python
 import math
 from bisect import bisect_left, bisect_right, insort
 from typing import Generic, Iterable, Iterator, TypeVar, Union, List
@@ -427,28 +472,26 @@ class SortedMultiset(Generic[T]):
         return ans
 ```
 
-##### 使い方
-(https://github.com/tatyam-prime/SortedSet)
-```
-s = SortedSet()
-# s = SortedMultiset()
+> <b>s = SortedSet()</b> 初期化<br>
+> <b>len(s)</b> sの長さを表示<br>
+> <b>s[x]</b> 下からx番目の要素を返す<br>
+> <b>s.add(n)</b> nを追加<br>
+> <b>s.discard(n)</b> nを削除<br>
+> <b>s.lt(n)</b> nより小さい最大の要素<br>
+> <b>s.le(n)</b> n以下の最大の要素><br>
+> <b>s.gt(n)</b> nより大きい最小の要素<br>
+> <b>s.ge(n)</b> n以上の最小の要素<br>
+> <b>s.index(n)</b> nより小さい要素の個数<br>
+> <b>s.index_right(n)</b> n以下の要素の個数<br>
+> <b>s.count(x)</b>sに含まれるxの個数を返す<br>
 
-s.a SortedSetの中身
-len(s)
-s[x] 下からx番目の要素を返す
-s.add(n) nを追加
-s.discard(n) nを削除
-s.lt(n) nより小さい最大の要素
-s.le(n) n以下の最大の要素
-s.gt(n) nより大きい最小の要素
-s.ge(n) n以上の最小の要素
-s.count(x) sに含まれるxの個数を返す
-s.index(n) nより小さい要素の個数
-s.index_right(n) n以下の要素の個数
-```
+> (https://github.com/tatyam-prime/SortedSet)
+</details>
 
-## 強連結成分分解(SCC)
-```
+<details>
+<summary><b>強連結成分分解(SCC)</b></summary>
+
+```python
 import sys
 sys.setrecursionlimit(10 ** 8)
 
@@ -492,14 +535,16 @@ for i in backorder:
     components.append([])
     rdfs(i)
 ```
-##### 解説
-```
-[AtCoder 典型90 021](https://atcoder.jp/contests/typical90/tasks/typical90_u)
-[Youtube かつっぱ競プロ](https://www.youtube.com/watch?v=cRbst-d4Fho&t=1198s)
-```
 
-## 凸包
-```
+> [AtCoder 典型90 021](https://atcoder.jp/contests/typical90/tasks/typical90_u)<br>
+> [Youtube かつっぱ競プロ](https://www.youtube.com/watch?v=cRbst-d4Fho&t=1198s)
+
+</details>
+
+<details>
+<summary><b>凸包</b></summary>
+
+```python
 def cross_product(moto, saki0, saki1):
     # moto->saki0 の直線に対し saki1がどちら側にあるか
     # >0 ならば 左側 <0 ならば 右側
@@ -541,6 +586,86 @@ def wrap(ps):
     
     return qs
 
-# wrap(point)
 # pointは座標をリスト型でまとめたもの
+wrap(point)
 ```
+</details>
+
+
+
+## AtCoder Library
+
+<details>
+<summary><b>DSU(Disjoint Set Union)</b></summary>
+
+> [Union Find]<br>
+> 無向グラフで2頂点が連結かどうかを判定
+
+### import
+```python
+from atcoder.dsu import DSU
+```
+
+### メソッド一覧
+>uf = DSU(N) 初期化(Nは頂点数)<br>
+
+>uf.merge(u, v) 頂点u,vの連結<br>
+>uf.same(u, v) 頂点u,vの連結成分判定(True/False)<br>
+>uf.leader(u) 頂点uのルート<br>
+>uf.size(u) 頂点uの連結成分の頂点数<br>
+>uf.groups() 各連結成分のリスト<br>
+
+</details>
+
+<details>
+<summary><b>Fenwick Tree</b></summary>
+
+>[Fenwick Tree(フェニック木)]<br>
+>長さ $N$ のリスト $A$ に対して、<br>
+>・リスト $A$ 内の要素 $A_i$ の値を変更する<br>
+>・半開区間 $[l, r)$ の値の総和 $A_l+A_{l+1}+\cdots +A_{r-1}$ を求める<br>
+> 上記の操作を$O(\log N)$で実行
+
+### import
+```python
+from atcoder.fenwicktree import FenwickTree
+```
+
+### メソッド一覧
+>ft = FenwickTree(N) 初期化(長さN、値0のリスト)<br>
+
+>ft.add(i, v) Aiの値にvを加算<br>
+>ft.sum(l, r) 半開区間[l,r)の値の総和を返す。
+</details>
+
+<details>
+<summary><b>floor_sum</b></summary>
+
+> 次の式で表される値を、 $O(\log m)$ で求める<br>
+> $\sum_{i = 0}^{n - 1} \left\lfloor \frac{a \times i + b}{m} \right\rfloor$<br>
+
+### import
+```python
+from atcoder.math import floor_sum
+```
+
+### メソッド一覧
+> floor_sum(n, m, a, b) 上記の式の値を返す<br>
+
+</details>
+
+<!-- <details>
+<summary><b></b></summary>
+
+> <br>
+
+### import
+```python
+```
+
+### メソッド一覧
+> <br>
+
+</details> -->
+
+[ac-library-python](https://github.com/not522/ac-library-python/blob/master/README_ja.md)<br>
