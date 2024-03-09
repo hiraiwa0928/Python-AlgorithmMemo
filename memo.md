@@ -639,7 +639,7 @@ from atcoder.fenwicktree import FenwickTree
 </details>
 
 <details>
-<summary><b>floor_sum</b></summary>
+<summary><b>floor sum</b></summary>
 
 > 次の式で表される値を、 $O(\log m)$ で求める<br>
 > $\sum_{i = 0}^{n - 1} \left\lfloor \frac{a \times i + b}{m} \right\rfloor$<br>
@@ -654,18 +654,57 @@ from atcoder.math import floor_sum
 
 </details>
 
-<!-- <details>
-<summary><b></b></summary>
+<details>
+<summary><b>SCC</b></summary>
 
-> <br>
+> 強連結成分分解<br>
+> 有向グラフにおいて、お互いに行き来できる頂点を1つのグループにまとめる<br>
 
 ### import
 ```python
+from atcoder.scc import SCCGraph
 ```
 
 ### メソッド一覧
-> <br>
+> graph = SCCGraph(N) 頂点数Nのグラフを作成<br>
 
-</details> -->
+> graph.add_edge(u, v) 頂点uから頂点vへの有向辺をはる<br>
+> graph.scc() 各要素(リスト)は強連結成分を返す<br>
+
+</details>
+
+<details>
+<summary><b>Segment Tree</b></summary>
+
+> リスト内の区間に対する演算(総和、最大値、最小値など)の結果を返す $O(\log N)$ <br>
+
+### import
+```python
+from atcoder.segtree import SegTree
+```
+
+### メソッド一覧
+> st = SegTree(op, e, v) op:演算関数(sum, max, minなど), e:初期値, v: list型の場合はそのままのリスト、int型の場合はすべての要素がeで長さvのリスト<br>
+
+> st.set(p, x)  リスト $A$ について、$A_p$ に $x$ を代入<br>
+> st.get(p) リスト $A$ の $p$ 番目の要素 $A_p$<br>
+> st.prod(l, r) 半開区間 $[l: r)$ における演算結果<br>
+> st.all_prod() リスト全体における演算結果<br>
+> st.max_right(p, func) セグメントツリー上で二分探索を行い、区間[x, j)がfuncを満たす最大のjを返す<br>
+> st.min_left(p, func) セグメントツリー上で二分探索を行い、区間[j, p)がfuncを満たす最小のjを返す<br>
+
+### 使用例
+```python
+from atcoder.segtree import SegTree
+
+A = [1, 2, 3, 2, 1]
+st = SegTree(max, -1, A)
+
+print(st.min_left(0, lambda x: x < 3))
+# 出力結果: 2 
+#      → [0, 2)
+```
+
+</details>
 
 [ac-library-python](https://github.com/not522/ac-library-python/blob/master/README_ja.md)<br>
