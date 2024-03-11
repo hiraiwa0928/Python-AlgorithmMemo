@@ -686,11 +686,11 @@ from atcoder.segtree import SegTree
 ### メソッド一覧
 > st = SegTree(op, e, v) op:演算関数(sum, max, minなど), e:初期値, v: list型の場合はそのままのリスト、int型の場合はすべての要素がeで長さvのリスト<br>
 
-> st.set(p, x)  リスト $A$ について、$A_p$ に $x$ を代入<br>
+> st.set(p, x)  リスト $A$ について、$A_p$に$x$を代入<br>
 > st.get(p) リスト $A$ の $p$ 番目の要素 $A_p$<br>
 > st.prod(l, r) 半開区間 $[l: r)$ における演算結果<br>
 > st.all_prod() リスト全体における演算結果<br>
-> st.max_right(p, func) セグメントツリー上で二分探索を行い、区間[x, j)がfuncを満たす最大のjを返す<br>
+> st.max_right(p, func) セグメントツリー上で二分探索を行い、区間[p, j)がfuncを満たす最大のjを返す<br>
 > st.min_left(p, func) セグメントツリー上で二分探索を行い、区間[j, p)がfuncを満たす最小のjを返す<br>
 
 ### 使用例
@@ -704,6 +704,188 @@ print(st.min_left(0, lambda x: x < 3))
 # 出力結果: 2 
 #      → [0, 2)
 ```
+
+</details>
+
+<details>
+<summary><b>Lazy Segtree</b></summary>
+
+> <br>
+
+### import
+```python
+from atcoder.lazysegtree import LazySegTree
+```
+
+### メソッド一覧
+> ls = LazySegTree(op, e, mapping, composition, _id, lst)<br>
+>   - 遅延セグメントツリーを構築する。引数は以下の通り<br>
+>       - op: 区間取得演算<br>
+>       - e: opの単位減<br>
+>       - mapping: dataにlazyを作用させた時の関数<br>
+>       - composition: lazyに別のlazyを作用させたときの関数<br>
+>       - _id: mappingの恒等写像<br>
+>       - lst: 初期リスト<br>
+
+> ls.apply(l, r, f) リスト $A$ について、 $i=l,l+1, \cdots , r-1$ それぞれに対して $A_i$ に $f$ を作用<br>
+> ls.set(p, x) リスト $A$ について、 $A_p$ に $x$ を代入<br>
+> ls.get(p) リスト $A$ の $p$ 番目の要素 $A_p$ を返す<br>
+> ls.prod(l, r) 半開区間 $[l: r)$ における演算の結果<br>
+> ls.all_prod() リスト全体における演算の結果<br>
+> ls.max_right(p, func) セグメントツリー上で二分探索を行い、区間[p, j)がfuncを満たす最大のjを返す<br>
+> ls.min_left(p, func) セグメントツリー上で二分探索を行い、区間[j, p)がfuncを満たす最小のjを返す<br>
+
+### 1. 区間加算・区間最小値取得
+```python
+from atcoder.lazysegtree import LazySegTree
+
+INF = 1 << 63
+
+def op(ele1, ele2):
+    return min(ele1, ele2)
+
+def mapping(func, ele):
+    return func + ele
+
+def composition(func_upper, func_lower):
+    return func_upper + func_lower
+
+e = INF
+id_ = 0
+
+# TODO (初期リストlst)
+seg = LazySegTree(op, e, mapping, composition, id_, lst)
+```
+
+### 2. 区間加算・区間最大値取得
+```python
+from atcoder.lazysegtree import LazySegTree
+
+INF = 1 << 63
+
+def op(ele1, ele2):
+    return max(ele1, ele2)
+
+def mapping(func, ele):
+    return func + ele
+
+def composition(func_upper, func_lower):
+    return func_upper + func_lower
+
+e = -INF
+id_ = 0
+
+# TODO (初期リストlst)
+seg = LazySegTree(op, e, mapping, composition, id_, lst)
+```
+
+### 3. 区間加算・区間和取得
+```python
+from atcoder.lazysegtree import LazySegTree
+
+def op(ele1, ele2):
+    return ele1 + ele2
+
+def mapping(func, ele):
+    return func + ele
+
+def composition(func_upper, func_lower):
+    return func_upper + func_lower
+
+e = 0
+id_ = 0
+
+# TODO (初期リストlst)
+seg = LazySegTree(op, e, mapping, composition, id_, lst)
+```
+
+### 4. 区間変更・区間最小値取得
+```python
+from atcoder.lazysegtree import LazySegTree
+
+INF = 1 << 63
+ID = INF
+
+def op(ele1, ele2):
+    return min(ele1, ele2)
+
+def mapping(func, ele):
+    if func == ID:
+        return ele
+    else:
+        return func
+
+def composition(func_upper, func_lower):
+    if func_upper == ID:
+        return func_lower
+    else:
+        return func_upper
+
+e = INF
+id_ = ID
+
+# TODO (初期リストlst)
+seg = LazySegTree(op, e, mapping, composition, id_, lst)
+```
+
+### 5. 区間変更・区間最大値取得
+```python
+from atcoder.lazysegtree import LazySegTree
+
+INF = 1 << 63
+ID = INF
+
+def op(ele1, ele2):
+    return max(ele1, ele2)
+
+def mapping(func, ele):
+    if func == ID:
+        return ele
+    else:
+        return func
+
+def composition(func_upper, func_lower):
+    if func_upper == ID:
+        return func_lower
+    else:
+        return func_upper
+
+e = -INF
+id_ = ID
+
+# TODO (初期リストlst)
+seg = LazySegTree(op, e, mapping, composition, id_, lst)
+```
+
+### 6. 区間変更・区間和取得
+```python
+from atcoder.lazysegtree import LazySegTree
+
+INF = 1 << 63
+ID = INF
+
+def op(ele1, ele2):
+    return ele1 + ele2
+
+def mapping(func, ele):
+    if func == ID:
+        return ele
+    else:
+        return func
+
+def composition(func_upper, func_lower):
+    if func_upper == ID:
+        return func_lower
+    else:
+        return func_upper
+
+e = 0
+id_ = ID
+
+# TODO (初期リストlst)
+seg = LazySegTree(op, e, mapping, composition, id_, lst)
+```
+[Pythonで遅延セグメントツリーの問題を解けるようにする！](https://qiita.com/hyouchun/items/1748bd320d2188a999f2)
 
 </details>
 
