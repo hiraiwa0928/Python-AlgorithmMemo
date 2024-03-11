@@ -686,7 +686,7 @@ from atcoder.segtree import SegTree
 ### メソッド一覧
 > st = SegTree(op, e, v) op:演算関数(sum, max, minなど), e:初期値, v: list型の場合はそのままのリスト、int型の場合はすべての要素がeで長さvのリスト<br>
 
-> st.set(p, x)  リスト $A$ について、$A_p$に$x$を代入<br>
+> st.set(p, x)  リスト $A$ について、 $A_p$ に $x$ を代入<br>
 > st.get(p) リスト $A$ の $p$ 番目の要素 $A_p$<br>
 > st.prod(l, r) 半開区間 $[l: r)$ における演算結果<br>
 > st.all_prod() リスト全体における演算結果<br>
@@ -710,7 +710,7 @@ print(st.min_left(0, lambda x: x < 3))
 <details>
 <summary><b>Lazy Segtree</b></summary>
 
-> <br>
+> リスト内の範囲を指定して、その区間全体に対する演算を行なった結果を取得 $O(\log N)$<br>
 
 ### import
 ```python
