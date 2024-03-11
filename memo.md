@@ -684,7 +684,10 @@ from atcoder.segtree import SegTree
 ```
 
 ### メソッド一覧
-> st = SegTree(op, e, v) op:演算関数(sum, max, minなど), e:初期値, v: list型の場合はそのままのリスト、int型の場合はすべての要素がeで長さvのリスト<br>
+> st = SegTree(op, e, v)
+> - op:演算関数(sum, max, minなど)<br>
+> - e:初期値<br>
+> - v: list型の場合はそのままのリスト、int型の場合はすべての要素がeで長さvのリスト<br>
 
 > st.set(p, x)  リスト $A$ について、 $A_p$ に $x$ を代入<br>
 > st.get(p) リスト $A$ の $p$ 番目の要素 $A_p$<br>
@@ -721,7 +724,7 @@ from atcoder.lazysegtree import LazySegTree
 > ls = LazySegTree(op, e, mapping, composition, _id, lst)<br>
 >   - 遅延セグメントツリーを構築する。引数は以下の通り<br>
 >       - op: 区間取得演算<br>
->       - e: opの単位減<br>
+>       - e: 初期値<br>
 >       - mapping: dataにlazyを作用させた時の関数<br>
 >       - composition: lazyに別のlazyを作用させたときの関数<br>
 >       - _id: mappingの恒等写像<br>
