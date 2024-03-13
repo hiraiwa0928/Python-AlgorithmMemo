@@ -714,6 +714,7 @@ print(st.min_left(0, lambda x: x < 3))
 <summary><b>Lazy Segtree</b></summary>
 
 > リスト内の範囲を指定して、その区間全体に対する演算を行なった結果を取得 $O(\log N)$<br>
+[ライブラリ解説](https://betrue12.hateblo.jp/entry/2020/09/22/194541)<br>
 
 ### import
 ```python
