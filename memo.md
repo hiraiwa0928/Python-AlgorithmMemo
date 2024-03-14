@@ -1,6 +1,6 @@
 ## Pythonの高速化
 <details>
-<summary><b>入力受付の高速化</b></summary>
+<summary><b>入力受付</b></summary>
 
 ```python
 import sys
@@ -9,7 +9,7 @@ input = sys.stdin.readline
 </details>
 
 <details>
-<summary><b>PyPy-再帰高速</b></summary>
+<summary><b>PyPy-再帰</b></summary>
 
 ```python
 import pypyjit
@@ -17,7 +17,7 @@ pypyjit.set_param('max_unroll_recursion=-1')
 ```
 </details>
 
-## 便利
+## 便利な関数やライブラリ
 
 <details>
 <summary><b>大文字小文字</b></summary>
@@ -740,6 +740,9 @@ from atcoder.lazysegtree import LazySegTree
 > ls.min_left(p, func) セグメントツリー上で二分探索を行い、区間[j, p)がfuncを満たす最小のjを返す<br>
 
 ### 1. 区間加算・区間最小値取得
+<details>
+<summary>コード</summary>
+
 ```python
 from atcoder.lazysegtree import LazySegTree
 
@@ -760,8 +763,13 @@ id_ = 0
 # TODO (初期リストlst)
 seg = LazySegTree(op, e, mapping, composition, id_, lst)
 ```
+</details>
+
 
 ### 2. 区間加算・区間最大値取得
+<details>
+<summary>コード</summary>
+
 ```python
 from atcoder.lazysegtree import LazySegTree
 
@@ -783,7 +791,13 @@ id_ = 0
 seg = LazySegTree(op, e, mapping, composition, id_, lst)
 ```
 
+</details>
+
 ### 3. 区間加算・区間和取得
+
+<details>
+<summary>コード</summary>
+
 ```python
 from atcoder.lazysegtree import LazySegTree
 
@@ -803,7 +817,14 @@ id_ = 0
 seg = LazySegTree(op, e, mapping, composition, id_, lst)
 ```
 
+</details>
+
+
 ### 4. 区間変更・区間最小値取得
+
+<details>
+<summary>コード</summary>
+
 ```python
 from atcoder.lazysegtree import LazySegTree
 
@@ -832,7 +853,13 @@ id_ = ID
 seg = LazySegTree(op, e, mapping, composition, id_, lst)
 ```
 
+</details>
+
+
 ### 5. 区間変更・区間最大値取得
+<details>
+<summary>コード</summary>
+
 ```python
 from atcoder.lazysegtree import LazySegTree
 
@@ -861,7 +888,13 @@ id_ = ID
 seg = LazySegTree(op, e, mapping, composition, id_, lst)
 ```
 
+</details>
+
+
 ### 6. 区間変更・区間和取得
+<details>
+<summary>コード</summary>
+
 ```python
 from atcoder.lazysegtree import LazySegTree
 
@@ -889,6 +922,9 @@ id_ = ID
 # TODO (初期リストlst)
 seg = LazySegTree(op, e, mapping, composition, id_, lst)
 ```
+
+</details>
+
 [Pythonで遅延セグメントツリーの問題を解けるようにする！](https://qiita.com/hyouchun/items/1748bd320d2188a999f2)
 
 </details>
