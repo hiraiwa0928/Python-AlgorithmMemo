@@ -20,6 +20,16 @@ pypyjit.set_param('max_unroll_recursion=-1')
 ## 便利な関数やライブラリ
 
 <details>
+<summary><b>逆元</b></summary>
+
+#### 変換
+```python
+def inverse(bunbo, bunshi, mod):
+    return bunshi * pow(bunbo, mod - 2, mod) % mod
+```
+</details>
+
+<details>
 <summary><b>大文字小文字</b></summary>
 
 #### 変換
