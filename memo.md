@@ -23,7 +23,7 @@ pypyjit.set_param('max_unroll_recursion=-1')
 <summary><b>逆元</b></summary>
 
 ```python
-def inverse(bunbo, bunshi, mod):
+def inv(bunbo, bunshi, mod):
     return bunshi * pow(bunbo, mod - 2, mod) % mod
 ```
 </details>
